@@ -5,7 +5,8 @@ make sure the reassebly package like a package without fragment indication.(but 
 
 how to use, for example:
 ------------------------------------------------------------------------------
-  IPReassembler m_ip_reassembler; //define a object
+         #include "ip-fragment.h"
+        IPReassembler m_ip_reassembler; //define a object
  
 	 //input_data: orignal package pointer
 	 //input_len : orignal package length
