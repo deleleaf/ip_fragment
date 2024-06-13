@@ -10,6 +10,7 @@
  * how to use, for example:
  * ------------------------------------------------------------------------------
  *   IPReassembler m_ip_reassembler; //define a object
+ *   IPReassembler::ReassemblyBuffer* ptr_reassembled = NULL; //define a pointer to reassembled buffer
  *  
  *	 //input_data: orignal package pointer
  *	 //input_len : orignal package length
@@ -38,13 +39,19 @@
 #include <unordered_map>
 #include <cstring>
 #include <stdio.h>
+#include <utility>
+#include <sys/types.h>
 #include <arpa/inet.h>
 
 #ifndef __IP_FRAGMENT_H__
 #define __IP_FRAGMENT_H__
 
-const size_t DEFAULT_BUFFER_SIZE = 4096;
-const uint32_t DEFAULT_TIMEOUT = 5; // 默认超时时间，单位秒
+#ifndef uint128_t
+typedef __uint128_t uint128_t;
+#endif
+
+const size_t DEFAULT_BUFFER_SIZE 	= 4096;		//max memeory space for reassembled package 
+const uint32_t DEFAULT_TIMEOUT 		= 5;		//timeout for reassemble max period  	§’
 
 class IPReassembler {
 public:
@@ -209,7 +216,7 @@ public:
 			pbuff = new ReassemblyBuffer;
 			pbuff->init();
 			pbuff->timestamp = timestampSec;
-			reassemblyBuffers.insert(make_pair(key, pbuff));
+			reassemblyBuffers.insert(std::make_pair(key, pbuff));
 	    }
 		else{
 			pbuff = _it->second;
