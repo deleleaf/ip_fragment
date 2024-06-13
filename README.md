@@ -7,6 +7,7 @@ how to use, for example:
 ------------------------------------------------------------------------------
         #include "ip-fragment.h"
         IPReassembler m_ip_reassembler; //define a object
+	IPReassembler::ReassemblyBuffer* ptr_reassembled = NULL; //define a pointer to reassembled buffer
  
 	 //input_data: orignal package pointer
 	 //input_len : orignal package length
